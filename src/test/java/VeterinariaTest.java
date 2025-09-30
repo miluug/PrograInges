@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VeterinariaTest {
 
+    //Tests
+
     @Test
     void agregarMascota(){
         Veterinaria veterinaria = new Veterinaria("123", "Huellitas");

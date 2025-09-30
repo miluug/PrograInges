@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PropietarioTest {
 
+    //Tests
+
     @Test
     void esMayorDeEdad() {
         Propietario p = new Propietario("123456", "Sandro", "123456789", "Calle 123", 20);
