@@ -14,7 +14,7 @@ public class Propietario {
         this.numContacto = numContacto;
         this.direccion = direccion;
         this.edad = edad;
-        this.listMascotas = new Mascota[10];
+        this.listMascotas = new Mascota[3];
     }
 
 
@@ -110,6 +110,8 @@ public class Propietario {
         }
         return false;
     }
+
+    //Metodo nuevo
 
     public boolean esMayorDeEdad (){
         return this.edad>=18;

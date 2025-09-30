@@ -138,7 +138,7 @@ public class Veterinaria {
         return null;
     }
 
-    private Mascota obtenerMascota(String codigo){
+    public Mascota obtenerMascota(String codigo){
         for(int i = 0; i < listMascotas.length; i++){
             if(listMascotas[i] != null &&
                     listMascotas[i].getCodigo().equals(codigo)){
@@ -159,7 +159,7 @@ public class Veterinaria {
 
     public double calcularValorConsulta(String codigo) {
         Mascota mascota = obtenerMascota(codigo);
-        double costoBase = 30000;
+        double costoBase = 20000;
 
         // incremento por especie
         if (mascota.getTipo().equalsIgnoreCase("perro")) {
@@ -170,14 +170,34 @@ public class Veterinaria {
             costoBase += 2000; // para otras especies
         }
 
-        // incremento por edad
+        /*// incremento por edad
         if (mascota.getEdad() > 10) {
             costoBase += 7000; // mascotas muy viejas
         } else if (mascota.getEdad() < 1) {
             costoBase += 4000; // cachorros o muy jóvenes
         }
+        */
+    // Metodo nuevo
+
         return costoBase;
     }
+         //Metodo nuevo
+        public boolean validarEsGato (String codigo){
+            Mascota mascota = obtenerMascota(codigo);
+            return mascota.getTipo().equalsIgnoreCase("gato");
+        }
+
+        public boolean validarId(String id) {
+            if (id == null) {
+                return false;
+            }
+            id = id.trim();
+            if (id.isEmpty()) {
+                return false;
+            }
+            return id.length() >= 8;
+        }
+
 
     // getters y setters
 
