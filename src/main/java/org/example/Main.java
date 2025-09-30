@@ -31,7 +31,8 @@ public class Main {
                     String nombre = JOptionPane.showInputDialog("Nombre del propietario:");
                     String contacto = JOptionPane.showInputDialog("Contacto del propietario:");
                     String direccion = JOptionPane.showInputDialog("Dirección del propietario:");
-                    boolean agregado = veterinaria.agregarPropietario(id, nombre, contacto, direccion);
+                    int edad = Integer.parseInt(JOptionPane.showInputDialog("Edad del propietario:"));
+                    boolean agregado = veterinaria.agregarPropietario(id, nombre, contacto, direccion, edad);
                     if (agregado) {
                         JOptionPane.showMessageDialog(null, "Propietario agregado");
                     } else {
@@ -44,10 +45,10 @@ public class Main {
                     String nombreMascota = JOptionPane.showInputDialog("Nombre de la mascota:");
                     String tipo = JOptionPane.showInputDialog("Especie de la mascota:");
                     String raza = JOptionPane.showInputDialog("Raza de la mascota:");
-                    int edad = Integer.parseInt(JOptionPane.showInputDialog("Edad de la mascota:"));
+                    int edadMas = Integer.parseInt(JOptionPane.showInputDialog("Edad de la mascota:"));
                     String idPropietario = JOptionPane.showInputDialog("ID del propietario:");
 
-                    boolean agregadoM = veterinaria.agregarMascota(codigo, nombreMascota, tipo, raza, edad, idPropietario);
+                    boolean agregadoM = veterinaria.agregarMascota(codigo, nombreMascota, tipo, raza, edadMas, idPropietario);
                     if (agregadoM) {
                         JOptionPane.showMessageDialog(null, "Mascota agregada");
                     } else {

@@ -5,13 +5,15 @@ public class Propietario {
     private String nombreCompleto;
     private String numContacto;
     private String direccion;
+    private int edad;
     private Mascota[] listMascotas;
 
-    public Propietario(String numIdentificacion, String nombrePropietario, String numContacto, String direccion) {
+    public Propietario(String numIdentificacion, String nombrePropietario, String numContacto, String direccion, int edad) {
         this.numIdentificacion = numIdentificacion;
         this.nombreCompleto = nombrePropietario;
         this.numContacto = numContacto;
         this.direccion = direccion;
+        this.edad = edad;
         this.listMascotas = new Mascota[10];
     }
 
@@ -55,6 +57,14 @@ public class Propietario {
         this.numIdentificacion = numIdentificacion;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
 
     // To String
     public String toString() {
@@ -62,6 +72,7 @@ public class Propietario {
                 "ID: " + numIdentificacion + "\n" +
                 "Nombre:" + nombreCompleto + "\n" +
                 "Numero de Contacto: " + numContacto + "\n" +
+                "Edad:" + edad + "\n" +
                 "Direccion: " + direccion + "\n"+
                 "--------------------------------------------------\n";
     }
@@ -98,5 +109,9 @@ public class Propietario {
             }
         }
         return false;
+    }
+
+    public boolean esMayorDeEdad (){
+        return this.edad>=18;
     }
 }

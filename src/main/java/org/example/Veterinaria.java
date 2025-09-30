@@ -20,9 +20,9 @@ public class Veterinaria {
     }
 
     // CRUD PROPIETARIO
-    public boolean agregarPropietario(String numIdentificacion, String nombreCompleto, String numContacto, String direccion) {
+    public boolean agregarPropietario(String numIdentificacion, String nombreCompleto, String numContacto, String direccion, int edad) {
         Propietario nuevoPropietario =
-                new Propietario(numIdentificacion, nombreCompleto, numContacto, direccion);
+                new Propietario(numIdentificacion, nombreCompleto, numContacto, direccion, edad);
 
         for (int i = 0; i < listPropietarios.length; i++) {
             if (listPropietarios[i] != null && listPropietarios[i].getNumIdentificacion().equals(numIdentificacion)) {
