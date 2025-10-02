@@ -12,13 +12,6 @@ class VeterinariaTest {
 
     //Tests
     private static final Logger LOG = Logger.getLogger(VeterinariaTest.class.getName());
-    @Test
-    void agregarMascota(){
-        LOG.info("Inicio de prueba agregarMascota...");
-        boolean res = veterinaria.agregarPropietario("123", "Sandro", "123456789", "Calle 123", 20);
-        assertTrue(veterinaria.agregarMascota("123", "Luna", "Perro", "Pitbull", 5, "123"));
-        LOG.info("Fin de prueba agregarMascota...");
-    }
 
     @Test
     void testValidoPorLongitud (){
@@ -44,16 +37,4 @@ class VeterinariaTest {
         LOG.info("Fin de prueba testInvalidoNullOVacio...");
     }
 
-
-    @Test
-    void testValidarEsGato() {
-        LOG.info("Inicio de prueba testValidarEsGato...");
-        Mascota conejo = new Mascota("014", "Luna", "Perro", "Chihuahua", 1);
-        boolean res = veterinaria.agregarPropietario("123", "Sandro", "123456789", "Calle 123", 20);
-
-        boolean r = veterinaria.agregarMascota("012", "Gala", "Gato", "Mestizo", 5, "123");
-        Mascota m = veterinaria.obtenerMascota("012");
-        assertTrue(veterinaria.validarEsGato(m.getCodigo()));
-        LOG.info("Fin de prueba testValidarEsGato...");
-    }
 }

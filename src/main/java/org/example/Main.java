@@ -40,22 +40,23 @@ public class Main {
                     }
                     break;
 
-                case 2:
+               /* case 2:
                     String codigo = JOptionPane.showInputDialog("Código de la mascota:");
                     String nombreMascota = JOptionPane.showInputDialog("Nombre de la mascota:");
-                    String tipo = JOptionPane.showInputDialog("Especie de la mascota:");
+                    String especie = JOptionPane.showInputDialog("Especie de la mascota:");
                     String raza = JOptionPane.showInputDialog("Raza de la mascota:");
                     int edadMas = Integer.parseInt(JOptionPane.showInputDialog("Edad de la mascota:"));
+                    double peso = Double.parseDouble(JOptionPane.showInputDialog("Peso de la mascota:"));
                     String idPropietario = JOptionPane.showInputDialog("ID del propietario:");
 
-                    boolean agregadoM = veterinaria.agregarMascota(codigo, nombreMascota, tipo, raza, edadMas, idPropietario);
+                    boolean agregadoM = veterinaria.agregarMascota(codigo, nombreMascota, especie, raza, edadMas, peso,idPropietario);
                     if (agregadoM) {
                         JOptionPane.showMessageDialog(null, "Mascota agregada");
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo agregar");
                     }
                     break;
-
+*/
                 case 3:
                     String idP = JOptionPane.showInputDialog("ID del propietario:");
                     String nombreP = JOptionPane.showInputDialog("Nuevo nombre del propietario:");
@@ -75,8 +76,9 @@ public class Main {
                     String tipoM = JOptionPane.showInputDialog("Nuevo tipo de la mascota:");
                     String razaM = JOptionPane.showInputDialog("Nueva raza de la mascota:");
                     int edadM = Integer.parseInt(JOptionPane.showInputDialog("Nueva edad de la mascota:"));
+                    double pesoM = Double.parseDouble(JOptionPane.showInputDialog("Nuevo peso de la mascota:"));
                     String idPropietarioM = JOptionPane.showInputDialog("ID del propietario:");
-                    boolean editadoM = veterinaria.actualizarMascota(codM, nombreM, tipoM, razaM, edadM, idPropietarioM);
+                    boolean editadoM = veterinaria.actualizarMascota(codM, nombreM, tipoM, razaM, edadM, pesoM, idPropietarioM);
                     if (editadoM) {
                         JOptionPane.showMessageDialog(null, "Mascota editada");
                     } else {

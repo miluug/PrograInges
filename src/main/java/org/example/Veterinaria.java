@@ -1,5 +1,8 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class Veterinaria {
 
     // Atributos
@@ -7,18 +10,20 @@ public class Veterinaria {
     private String nombre;
 
     // Atributos relacionales
-    private Propietario[] listPropietarios;
-    private Mascota[] listMascotas;
+    private ArrayList <Propietario> listPropietarios;
+    private ArrayList <Mascota> listMascotas;
+    private ArrayList <AtencionMedica> listAtenciones;
 
 
     public Veterinaria(String nit, String nombre) {
         this.nit = nit;
         this.nombre = nombre;
-        this.listPropietarios = new Propietario[10];
-        this.listMascotas = new Mascota[10];
+        this.listPropietarios = new ArrayList<>();
+        this.listMascotas = new ArrayList<>();
+        this.listAtenciones = new ArrayList<>();
 
     }
-
+    /*
     // CRUD PROPIETARIO
     public boolean agregarPropietario(String numIdentificacion, String nombreCompleto, String numContacto, String direccion, int edad) {
         Propietario nuevoPropietario =
@@ -60,8 +65,8 @@ public class Veterinaria {
     }
 
     // CRUD MASCOTA
-    public boolean agregarMascota(String codigo, String nombre, String tipo, String raza, int edad, String numIdentificacion) {
-        Mascota nuevaMascota = new Mascota(codigo, nombre, tipo, raza, edad);
+    public boolean agregarMascota(String codigo, String nombre, String especie, String raza, int edad, double peso, String numIdentificacion) {
+        Mascota nuevaMascota = new Mascota(codigo, nombre, especie, raza, edad, peso);
         Propietario propietario = obtenerPropietario(numIdentificacion);
 
         for (int i = 0; i < listMascotas.length; i++) {
@@ -89,7 +94,7 @@ public class Veterinaria {
         return true;
     }
 
-    public boolean actualizarMascota(String codigo, String nombre, String tipo, String raza, int edad, String numIdentificacion){
+    public boolean actualizarMascota(String codigo, String nombre, String especie, String raza, int edad,double peso, String numIdentificacion){
 
         int indexMascota = obtenerPosicionMascota(codigo);
         Propietario propietario = obtenerPropietario(numIdentificacion);
@@ -98,17 +103,128 @@ public class Veterinaria {
         Mascota mascotaActualizada = listMascotas[indexMascota];
 
         mascotaActualizada.setNombre(nombre);
-        mascotaActualizada.setTipo(tipo);
+        mascotaActualizada.setEspecie(especie);
         mascotaActualizada.setRaza(raza);
         mascotaActualizada.setEdad(edad);
-        propietario.editarMascota(codigo, nombre, tipo, raza, edad);
+        propietario.editarMascota(codigo, nombre, especie, raza, edad, peso);
+        return true;
+    }
+    */
+
+    // CRUDS actualizados
+
+    // CRUD PROPIETARIO
+    public boolean agregarPropietario(String numIdentificacion, String nombreCompleto, String numContacto, String direccion, int edad) {
+        Propietario propietario = new Propietario(numIdentificacion, nombreCompleto, numContacto, direccion, edad);
+        for (int i = 0; i < listPropietarios.size(); i++) {
+            if (listPropietarios.get(i) != null && listPropietarios.get(i).getNumIdentificacion().equals(numIdentificacion)) {
+                return false;
+            }
+        }
+        listPropietarios.add(propietario);
         return true;
     }
 
+    public boolean eliminarPropietario(String numIdentificacion){
+        for (int i = 0; i < listPropietarios.size(); i++) {
+            if (listPropietarios.get(i) != null && listPropietarios.get(i).getNumIdentificacion().equals(numIdentificacion)) {
+                listPropietarios.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
-    //Métodos auxiliares
+    public boolean actualizarPropietario(String numIdentificacion, String nombreCompleto, String numContacto, String direccion){
+        for (int i = 0; i < listPropietarios.size(); i++) {
+            if (listPropietarios.get(i) != null && listPropietarios.get(i).getNumIdentificacion().equals(numIdentificacion)) {
+                listPropietarios.get(i).setNombreCompleto(nombreCompleto);
+                listPropietarios.get(i).setNumContacto(numContacto);
+                listPropietarios.get(i).setDireccion(direccion);
+                return true;
+            }
+        }
+        return false;
+    }
 
-    private int obtenerPosicionPropietario(String numIdentificacion){
+    // CRUD MASCOTA
+    public boolean agregarMascota(String codigo, String nombre, Especie especie, String raza, int edad, double peso, String numIdentificacion) {
+        Mascota mascota = new Mascota(codigo, nombre, especie, raza, edad, peso);
+        Propietario propietario = obtenerPropietario(numIdentificacion);
+        propietario.agregarMascota(mascota);
+        listMascotas.add(mascota);
+        return true;
+    }
+
+    public boolean eliminarMascota(String codigo, String numIdentificacion){
+        for (int i = 0; i < listMascotas.size(); i++) {
+            if (listMascotas.get(i) != null && listMascotas.get(i).getCodigo().equals(codigo)) {
+                listMascotas.remove(i);
+                Propietario propietario = obtenerPropietario(numIdentificacion);
+                propietario.eliminarMascota(codigo);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean actualizarMascota(String codigo, String nombre, String especie, String raza, int edad, double peso, String numIdentificacion){
+        for (int i = 0; i < listMascotas.size(); i++) {
+            if (listMascotas.get(i) != null && listMascotas.get(i).getCodigo().equals(codigo)) {
+                listMascotas.get(i).setNombre(nombre);
+                listMascotas.get(i).setEspecie(especie);
+                listMascotas.get(i).setRaza(raza);
+                listMascotas.get(i).setEdad(edad);
+                listMascotas.get(i).setPeso(peso);
+                Propietario propietario = obtenerPropietario(numIdentificacion);
+                propietario.editarMascota(codigo, nombre, especie, raza, edad, peso);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // CRUD ATENCION
+
+    public boolean agregarAtencion (String numeroAtencion, LocalDate fecha, TipoConsulta tipoConsulta, double valorBase, String codigoMascota) {
+        Mascota mascota = obtenerMascota(codigoMascota);
+        AtencionMedica atencion = new AtencionMedica(numeroAtencion, fecha, mascota, tipoConsulta, valorBase);
+        for (int i = 0; i < listAtenciones.size(); i++) {
+            if (listAtenciones.get(i) != null && listAtenciones.get(i).getNumeroAtencion().equals(numeroAtencion)) {
+                return false;
+            }
+        }
+        listAtenciones.add(atencion);
+        return true;
+    }
+
+    public boolean eliminarAtencion (String numeroAtencion){
+        for (int i = 0; i < listAtenciones.size(); i++) {
+            if (listAtenciones.get(i) != null && listAtenciones.get(i).getNumeroAtencion().equals(numeroAtencion)) {
+                listAtenciones.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean actualizarAtencion (String numeroAtencion, LocalDate fecha, TipoConsulta tipoConsulta, double valorBase){
+        for (int i = 0; i < listAtenciones.size(); i++) {
+            if (listAtenciones.get(i) != null && listAtenciones.get(i).getNumeroAtencion().equals(numeroAtencion)) {
+                listAtenciones.get(i).setFecha(fecha);
+                listAtenciones.get(i).setTipoConsulta(tipoConsulta);
+                listAtenciones.get(i).setValorBase(valorBase);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    //Métodos aux antiguos
+
+   /* private int obtenerPosicionPropietario(String numIdentificacion){
         for(int i = 0; i < listPropietarios.length; i++){
             if(listPropietarios[i] != null &&
                     listPropietarios[i].getNumIdentificacion().equals(numIdentificacion)){
@@ -156,38 +272,102 @@ public class Veterinaria {
     public Mascota[] obtenerListaMascotas() {
         return listMascotas;
     }
+    */
 
-    public double calcularValorConsulta(String codigo) {
-        Mascota mascota = obtenerMascota(codigo);
-        double costoBase = 20000;
+    // Métodos aux nuevos
 
-        // incremento por especie
-        if (mascota.getTipo().equalsIgnoreCase("perro")) {
-            costoBase += 5000;
-        } else if (mascota.getTipo().equalsIgnoreCase("gato")) {
-            costoBase += 3000;
-        } else {
-            costoBase += 2000; // para otras especies
+    public Propietario obtenerPropietario(String numIdentificacion) {
+        for (int i = 0; i < listPropietarios.size(); i++) {
+            if (listPropietarios.get(i) != null && listPropietarios.get(i).getNumIdentificacion().equals(numIdentificacion)) {
+                return listPropietarios.get(i);
+            }
         }
-
-        /*// incremento por edad
-        if (mascota.getEdad() > 10) {
-            costoBase += 7000; // mascotas muy viejas
-        } else if (mascota.getEdad() < 1) {
-            costoBase += 4000; // cachorros o muy jóvenes
-        }
-        */
-    // Metodo nuevo
-
-        return costoBase;
+        return null;
     }
-         //Metodo nuevo
-        public boolean validarEsGato (String codigo){
-            Mascota mascota = obtenerMascota(codigo);
-            return mascota.getTipo().equalsIgnoreCase("gato");
+
+    public Mascota obtenerMascota(String codigo) {
+        for (int i = 0; i < listMascotas.size(); i++) {
+            if (listMascotas.get(i) != null && listMascotas.get(i).getCodigo().equals(codigo)) {
+                return listMascotas.get(i);
+            }
+        }
+        return null;
+    }
+
+    public AtencionMedica obtenerAtencion(String numeroAtencion) {
+        for (int i = 0; i < listAtenciones.size(); i++) {
+            if (listAtenciones.get(i) != null && listAtenciones.get(i).getNumeroAtencion().equals(numeroAtencion)) {
+                return listAtenciones.get(i);
+            }
+        }
+        return null;
+    }
+
+
+    public double calcularValorConsulta(String numeroAtencion) {
+        AtencionMedica atencion = obtenerAtencion(numeroAtencion);
+        Mascota mascota = atencion.getMascota();
+        double valorBase = atencion.getValorBase();
+        double costoFinal = valorBase;
+
+        if (mascota.getEspecie() == Especie.REPTIL || mascota.getEspecie() == Especie.AVE) {
+            costoFinal *= 1.1;
         }
 
-        public boolean validarId(String id) {
+        if (mascota.getCategoriaEdad() == CategoriaEdad.ADULTO) {
+            costoFinal *= 1.2;
+        }
+
+        if (atencion.getTipoConsulta() == TipoConsulta.URGENCIA){
+            costoFinal *= 1.5;
+        }
+
+        return costoFinal;
+    }
+
+    public double estimarDosisMedicamento (String codigoMascota, double dosisBase){
+        Mascota mascota = obtenerMascota(codigoMascota);
+        double pesoMascota = mascota.getPeso();
+        return dosisBase * pesoMascota;
+    }
+
+    public String sugerirProximaFechaVacuna(String codigoMascota){
+        Mascota mascota = obtenerMascota(codigoMascota);
+        LocalDate fechaActual = LocalDate.now();
+        LocalDate proximaVacuna;
+        String fecha = "Fecha próxima vacuna: ";
+        if (mascota.getEspecie()== Especie.PERRO || mascota.getEspecie()== Especie.GATO){
+            proximaVacuna = fechaActual.plusMonths(12);
+            fecha += proximaVacuna;
+        } else if (mascota.getEspecie()== Especie.AVE){
+            proximaVacuna = fechaActual.plusMonths(8);
+            fecha += proximaVacuna;
+        } else {
+            proximaVacuna = fechaActual.plusMonths(18);
+            fecha += proximaVacuna;
+        }
+        return fecha;
+    }
+
+    public int calcularPrioridad (String numeroAtencion){
+        AtencionMedica atencion = obtenerAtencion(numeroAtencion);
+        TipoConsulta tipoConsulta = atencion.getTipoConsulta();
+
+        switch (tipoConsulta){
+            case URGENCIA:
+                return 4;
+            case VACUNACION:
+                return 3;
+            case GENERAL:
+                return 2;
+            case CONTROL:
+                return 1;
+            default:
+                return 0;
+            }
+    }
+
+    public boolean validarId(String id) {
             if (id == null) {
                 return false;
             }
@@ -215,6 +395,17 @@ public class Veterinaria {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public ArrayList<Propietario> obtenerListaPropietarios() {
+        return listPropietarios;
+    }
+
+    public ArrayList<Mascota> obtenerListaMascotas() {
+        return listMascotas;
+    }
+
+    public ArrayList<AtencionMedica> obtenerListaAtenciones() {
+        return listAtenciones;
     }
 
     // To String
